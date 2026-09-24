@@ -92,15 +92,13 @@ KNIGHTS = {
 def battle(knights: dict) -> dict:
     created = {key: Knight(value) for key, value in knights.items()}
 
-    lancelot = created["lancelot"]
-    mordred = created["mordred"]
-    arthur = created["arthur"]
-    red_knight = created["red_knight"]
+    pairs = [("lancelot", "mordred"), ("arthur", "red_knight")]
+    for k1, k2 in pairs:
+        knight_1 = created[k1]
+        knight_2 = created[k2]
 
-    lancelot.fight(mordred.power)
-    mordred.fight(lancelot.power)
-    arthur.fight(red_knight.power)
-    red_knight.fight(arthur.power)
+        knight_1.fight(knight_2.power)
+        knight_2.fight(knight_1.power)
 
     return {
         value.name: value.hp for value in created.values()

@@ -9,7 +9,7 @@ class Knight:
         self.armour = self.calc_protection()
         self.hp = self.calc_hp()
 
-    def calc_power(self) -> Knight:
+    def calc_power(self) -> int:
         potion_power = self.get_potion_effect("power")
         return (
             self.knight_dict.get("power")
@@ -17,7 +17,7 @@ class Knight:
             + potion_power
         )
 
-    def calc_protection(self) -> Knight:
+    def calc_protection(self) -> int:
         potion_protection = self.get_potion_effect("protection")
         armour_protection = 0
 
@@ -27,7 +27,7 @@ class Knight:
                 armour_protection += arm["protection"]
         return potion_protection + armour_protection
 
-    def calc_hp(self) -> Knight:
+    def calc_hp(self) -> int:
         potion_hp = self.get_potion_effect("hp")
         return potion_hp + self.knight_dict["hp"]
 
@@ -40,4 +40,3 @@ class Knight:
 
     def fight(self, damage: int) -> None:
         self.hp = max(0, (self.hp - (damage - self.armour)))
-        return self
