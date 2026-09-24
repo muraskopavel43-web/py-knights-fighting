@@ -37,3 +37,7 @@ class Knight:
         if potion and stat_name in potion["effect"]:
             effect_value = potion["effect"].get(stat_name)
         return effect_value
+
+    def fight(self, damage: int) -> None:
+        self.hp = max(0, (self.hp - (damage - self.armour)))
+        return self

@@ -90,26 +90,18 @@ KNIGHTS = {
 
 
 def battle(knights: dict) -> dict:
-    lancelot = Knight(knights["lancelot"])
-    arthur = Knight(knights["arthur"])
-    mordred = Knight(knights["mordred"])
-    red_knight = Knight(knights["red_knight"])
+    created = {key: Knight(value) for key, value in knights.items()}
 
-    lancelot.hp = max(0, (lancelot.hp - (mordred.power - lancelot.armour)))
-    mordred.hp = max(0, (mordred.hp - (lancelot.power - mordred.armour)))
+    lancelot = created["lancelot"]
+    mordred = created["mordred"]
+    arthur = created["arthur"]
+    red_knight = created["red_knight"]
 
-    arthur.hp = max(0, (arthur.hp - (red_knight.power - arthur.armour)))
-    red_knight.hp = max(
-        0,
-        (red_knight.hp - (arthur.power - red_knight.armour))
-    )
+    lancelot.fight(mordred.power)
+    mordred.fight(lancelot.power)
+    arthur.fight(red_knight.power)
+    red_knight.fight(arthur.power)
 
     return {
-        lancelot.name: lancelot.hp,
-        arthur.name: arthur.hp,
-        mordred.name: mordred.hp,
-        red_knight.name: red_knight.hp,
+        value.name: value.hp for value in created.values()
     }
-
-
-print(battle(KNIGHTS))
